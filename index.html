@@ -106,7 +106,7 @@
 
     <script>
       const music = document.getElementById("music");
-      music.volume = 0.01;
+      music.volume = 0.01; // Musiklautstärke
       music.play().catch(() => {
         document.addEventListener("click", () => {
           music.volume = 0.01;
@@ -115,6 +115,7 @@
       });
 
       const tipSound = document.getElementById("tipSound");
+      tipSound.volume = 0.003; // Tipp-Sound deutlich leiser
 
       // TTT-Tipps
       const tipps = [
