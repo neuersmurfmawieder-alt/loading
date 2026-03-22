@@ -5,7 +5,7 @@
     <img src="https://i.imgur.com/vHaAO5O.gif"
          style="position:fixed; width:100%; height:100%; object-fit:cover; z-index:-1;">
 
-    <!-- Zentrumstext mit Animationen -->
+    <!-- Zentrumstext mit maximaler Animation -->
     <div style="
       position:absolute;
       top:50%;
@@ -14,22 +14,23 @@
       text-align:center;
     ">
       <h1 id="title" style="
-        font-size:60px; 
+        font-size:65px; 
         margin:0; 
-        text-shadow: 0 0 30px #ff0000, 0 0 60px #00ff00, 0 0 90px #0000ff;
-        animation: rainbowGlow 3s infinite alternate;
+        color:#ff00ff;
+        text-shadow: 0 0 20px #ff00ff, 0 0 40px #00ffff, 0 0 60px #ffff00;
+        animation: colorPulse 2s infinite alternate, shake 1s infinite, glow 3s infinite alternate;
       ">
-        🔥 AMOGUS AUF CRACK 🔥
+        🔥 FeelsBadManZone 🔥
       </h1>
       <p id="welcome" style="
-        font-size:25px; 
+        font-size:28px; 
         margin-top:10px; 
         color:#ff00ff;
         animation: colorPulse 2s infinite alternate, bounce 1.5s infinite;
       ">
         Willkommen… bereite dich auf das TOTAL CHAOS vor 😄
       </p>
-      <p id="tip" style="font-size:20px; margin-top:20px; color:#00ffff; text-shadow: 0 0 10px #00ffff;">
+      <p id="tip" style="font-size:22px; margin-top:20px; color:#00ffff; text-shadow: 0 0 15px #00ffff;">
         Lade Tipps…
       </p>
     </div>
@@ -40,16 +41,7 @@
     </audio>
 
     <style>
-      /* Farben ändern sich im Rainbow-Glow */
-      @keyframes rainbowGlow {
-        0% { text-shadow: 0 0 20px #ff0000, 0 0 40px #00ff00, 0 0 60px #0000ff; }
-        25% { text-shadow: 0 0 20px #ff00ff, 0 0 40px #ffff00, 0 0 60px #00ffff; }
-        50% { text-shadow: 0 0 20px #00ffff, 0 0 40px #ff8800, 0 0 60px #ff0088; }
-        75% { text-shadow: 0 0 20px #00ff00, 0 0 40px #ff0000, 0 0 60px #0000ff; }
-        100% { text-shadow: 0 0 20px #ffff00, 0 0 40px #ff00ff, 0 0 60px #00ffff; }
-      }
-
-      /* Pulsierende Farben für Welcome-Text */
+      /* Farben pulsieren */
       @keyframes colorPulse {
         0% { color:#ff00ff; }
         25% { color:#00ffff; }
@@ -58,20 +50,41 @@
         100% { color:#00ff00; }
       }
 
-      /* Leichtes Auf- und Abwackeln */
+      /* Bounce für Willkommenstext */
       @keyframes bounce {
         0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-10px); }
+        50% { transform: translateY(-15px); }
+      }
+
+      /* Leichtes Glühen für Titel */
+      @keyframes glow {
+        0% { text-shadow: 0 0 20px #ff00ff, 0 0 40px #00ffff, 0 0 60px #ffff00; }
+        50% { text-shadow: 0 0 30px #ff0000, 0 0 60px #00ff00, 0 0 90px #0000ff; }
+        100% { text-shadow: 0 0 40px #ff00ff, 0 0 80px #00ffff, 0 0 120px #ffff00; }
+      }
+
+      /* Heftiges Wackeln für Titel */
+      @keyframes shake {
+        0%, 100% { transform: translate(0,0) rotate(0deg); }
+        10% { transform: translate(-5px,-5px) rotate(-5deg); }
+        20% { transform: translate(5px,5px) rotate(5deg); }
+        30% { transform: translate(-5px,5px) rotate(-5deg); }
+        40% { transform: translate(5px,-5px) rotate(5deg); }
+        50% { transform: translate(-5px,-5px) rotate(-5deg); }
+        60% { transform: translate(5px,5px) rotate(5deg); }
+        70% { transform: translate(-5px,5px) rotate(-5deg); }
+        80% { transform: translate(5px,-5px) rotate(5deg); }
+        90% { transform: translate(-5px,-5px) rotate(-5deg); }
       }
     </style>
 
     <script>
       const music = document.getElementById("music");
 
-      // Ultraleise Lautstärke
+      // Ultraleise Musik
       music.volume = 0.01;
 
-      // Autoplay versuchen, falls blockiert → starte nach Klick
+      // Autoplay nach Klick, falls blockiert
       music.play().catch(() => {
         document.addEventListener("click", () => {
           music.volume = 0.01;
@@ -79,7 +92,7 @@
         });
       });
 
-      // TTT-Tipps
+      // TTT-Tipps (ultra-cringe & witzig)
       const tipps = [
         "Tipp: Immer den Traitor schmeicheln, vielleicht vergisst er, dass du Innocent bist. 🔥",
         "Tipp: Werft zufällig aufeinanderfolgende Bananen – Chaos garantiert.",
@@ -103,8 +116,21 @@
 
       function changeTipp() {
         tipDiv.textContent = tipps[index];
+        tipDiv.style.animation = "tipFlash 0.5s"; // kleines Aufblitzen
+        setTimeout(() => tipDiv.style.animation = "", 500);
         index = (index + 1) % tipps.length;
       }
+
+      // Tipp-Aufblitzen Animation
+      const style = document.createElement('style');
+      style.innerHTML = `
+        @keyframes tipFlash {
+          0% { color:#00ffff; text-shadow:0 0 5px #00ffff; transform: scale(1); }
+          50% { color:#ff00ff; text-shadow:0 0 20px #ff00ff; transform: scale(1.2); }
+          100% { color:#00ffff; text-shadow:0 0 5px #00ffff; transform: scale(1); }
+        }
+      `;
+      document.head.appendChild(style);
 
       // Ersten Tipp direkt anzeigen
       changeTipp();
