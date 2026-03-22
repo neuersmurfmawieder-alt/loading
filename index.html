@@ -96,18 +96,18 @@
         100% { transform: translateX(0); }
       }
 
-      /* Emotes fallen von oben */
-      @keyframes emoteFall {
-        0% { transform: translateY(-50px) scale(1); opacity:1; }
-        100% { transform: translateY(110vh) scale(1.2); opacity:0; }
+      /* Pepe Bilder fallen */
+      @keyframes pepeFall {
+        0% { transform: translateY(-50px) rotate(0deg); opacity:1; }
+        100% { transform: translateY(110vh) rotate(360deg); opacity:0; }
       }
 
-      .emote {
+      .pepe {
         position:fixed;
-        font-size:30px;
+        width:50px;
         pointer-events:none;
         z-index:9999;
-        animation: emoteFall 6s linear forwards;
+        animation: pepeFall 5s linear forwards;
       }
     </style>
 
@@ -115,9 +115,7 @@
       // Musik
       const music = document.getElementById("music");
       music.volume = 0.01;
-      music.play().catch(() => {
-        document.addEventListener("click", () => music.play());
-      });
+      music.play().catch(() => document.addEventListener("click", () => music.play()));
 
       // Tipp-Sound
       const tipSound = document.getElementById("tipSound");
@@ -157,20 +155,26 @@
       changeTipp();
       setInterval(changeTipp, 5000);
 
-      // Emotes fallen zufällig
-      const emotes = ["🔥","😄","💀","💥","🍌","🎉","✨","🪩","🎯","🥳"];
-      function spawnEmote() {
-        if (document.querySelectorAll(".emote").length > 10) return; // max 10 gleichzeitig
-        const emote = document.createElement("div");
-        emote.classList.add("emote");
-        emote.textContent = emotes[Math.floor(Math.random()*emotes.length)];
-        emote.style.left = Math.random() * 100 + "vw";
-        emote.style.fontSize = 20 + Math.random()*20 + "px";
-        document.body.appendChild(emote);
-        setTimeout(() => emote.remove(), 6000);
+      // Pepe Bilder zufällig fallen lassen
+      const pepeImages = [
+        "https://i.imgur.com/7PxMp3g.png",
+        "https://i.imgur.com/kzJQKG7.png",
+        "https://i.imgur.com/1Li1kpl.png"
+      ];
+
+      function spawnPepe() {
+        if (document.querySelectorAll(".pepe").length > 8) return; // max 8 gleichzeitig
+        const img = document.createElement("img");
+        img.src = pepeImages[Math.floor(Math.random()*pepeImages.length)];
+        img.classList.add("pepe");
+        img.style.left = Math.random() * 90 + "vw";
+        img.style.width = 30 + Math.random()*30 + "px"; // random Größe
+        img.style.animationDuration = 4 + Math.random()*3 + "s"; // 4-7s fall
+        document.body.appendChild(img);
+        setTimeout(() => img.remove(), 7000);
       }
 
-      setInterval(spawnEmote, 1000);
+      setInterval(spawnPepe, 1200); // alle 1,2 Sekunden
     </script>
 
   </body>
