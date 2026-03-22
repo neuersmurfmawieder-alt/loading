@@ -5,32 +5,43 @@
     <img src="https://i.imgur.com/vHaAO5O.gif"
          style="position:fixed; width:100%; height:100%; object-fit:cover; z-index:-1;">
 
-    <!-- Zentrumstext mit maximaler Animation -->
+    <!-- Obere Texte: Servername & Willkommen -->
     <div style="
       position:absolute;
-      top:50%;
+      top:20%;
       left:50%;
-      transform:translate(-50%, -50%);
+      transform:translateX(-50%);
       text-align:center;
     ">
       <h1 id="title" style="
-        font-size:65px; 
+        font-size:70px; 
         margin:0; 
+        font-weight:bold;
         color:#ff00ff;
-        text-shadow: 0 0 20px #ff00ff, 0 0 40px #00ffff, 0 0 60px #ffff00;
-        animation: colorPulse 2s infinite alternate, shake 1s infinite, glow 3s infinite alternate;
+        animation: colorPulse 2s infinite alternate;
       ">
         🔥 FeelsBadManZone 🔥
       </h1>
       <p id="welcome" style="
-        font-size:28px; 
+        font-size:32px; 
         margin-top:10px; 
+        font-weight:bold;
         color:#ff00ff;
-        animation: colorPulse 2s infinite alternate, bounce 1.5s infinite;
+        animation: colorPulse 2s infinite alternate;
       ">
         Willkommen… bereite dich auf das TOTAL CHAOS vor 😄
       </p>
-      <p id="tip" style="font-size:22px; margin-top:20px; color:#00ffff; text-shadow: 0 0 15px #00ffff;">
+    </div>
+
+    <!-- Tipps weiter unten -->
+    <div style="
+      position:absolute;
+      top:80%;
+      left:50%;
+      transform:translateX(-50%);
+      text-align:center;
+    ">
+      <p id="tip" style="font-size:22px; color:#00ffff; text-shadow:0 0 15px #00ffff;">
         Lade Tipps…
       </p>
     </div>
@@ -50,41 +61,17 @@
         100% { color:#00ff00; }
       }
 
-      /* Bounce für Willkommenstext */
-      @keyframes bounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-15px); }
-      }
-
-      /* Leichtes Glühen für Titel */
-      @keyframes glow {
-        0% { text-shadow: 0 0 20px #ff00ff, 0 0 40px #00ffff, 0 0 60px #ffff00; }
-        50% { text-shadow: 0 0 30px #ff0000, 0 0 60px #00ff00, 0 0 90px #0000ff; }
-        100% { text-shadow: 0 0 40px #ff00ff, 0 0 80px #00ffff, 0 0 120px #ffff00; }
-      }
-
-      /* Heftiges Wackeln für Titel */
-      @keyframes shake {
-        0%, 100% { transform: translate(0,0) rotate(0deg); }
-        10% { transform: translate(-5px,-5px) rotate(-5deg); }
-        20% { transform: translate(5px,5px) rotate(5deg); }
-        30% { transform: translate(-5px,5px) rotate(-5deg); }
-        40% { transform: translate(5px,-5px) rotate(5deg); }
-        50% { transform: translate(-5px,-5px) rotate(-5deg); }
-        60% { transform: translate(5px,5px) rotate(5deg); }
-        70% { transform: translate(-5px,5px) rotate(-5deg); }
-        80% { transform: translate(5px,-5px) rotate(5deg); }
-        90% { transform: translate(-5px,-5px) rotate(-5deg); }
+      /* Tipps Aufblitzen beim Wechsel */
+      @keyframes tipFlash {
+        0% { color:#00ffff; text-shadow:0 0 5px #00ffff; transform: scale(1); }
+        50% { color:#ff00ff; text-shadow:0 0 20px #ff00ff; transform: scale(1.1); }
+        100% { color:#00ffff; text-shadow:0 0 5px #00ffff; transform: scale(1); }
       }
     </style>
 
     <script>
       const music = document.getElementById("music");
-
-      // Ultraleise Musik
       music.volume = 0.01;
-
-      // Autoplay nach Klick, falls blockiert
       music.play().catch(() => {
         document.addEventListener("click", () => {
           music.volume = 0.01;
@@ -92,9 +79,9 @@
         });
       });
 
-      // TTT-Tipps (ultra-cringe & witzig)
+      // TTT-Tipps
       const tipps = [
-        "Tipp: Immer den Traitor schmeicheln, vielleicht vergisst er, dass du Innocent bist.",
+        "Tipp: Immer den Traitor schmeicheln, vielleicht vergisst er, dass du Innocent bist. 🔥",
         "Tipp: Werft zufällig aufeinanderfolgende Bananen – Chaos garantiert.",
         "Tipp: Wenn du einen Body siehst, tu so, als würdest du ihn streicheln – komplett harmlos!",
         "Tipp: Traitor? Einfach einen Zettel 'Ich bin unschuldig' ans Stirnband kleben.",
@@ -116,25 +103,13 @@
 
       function changeTipp() {
         tipDiv.textContent = tipps[index];
-        tipDiv.style.animation = "tipFlash 0.5s"; // kleines Aufblitzen
+        tipDiv.style.animation = "tipFlash 0.5s";
         setTimeout(() => tipDiv.style.animation = "", 500);
         index = (index + 1) % tipps.length;
       }
 
-      // Tipp-Aufblitzen Animation
-      const style = document.createElement('style');
-      style.innerHTML = `
-        @keyframes tipFlash {
-          0% { color:#00ffff; text-shadow:0 0 5px #00ffff; transform: scale(1); }
-          50% { color:#ff00ff; text-shadow:0 0 20px #ff00ff; transform: scale(1.2); }
-          100% { color:#00ffff; text-shadow:0 0 5px #00ffff; transform: scale(1); }
-        }
-      `;
-      document.head.appendChild(style);
-
-      // Ersten Tipp direkt anzeigen
+      // Erster Tipp
       changeTipp();
-
       // Alle 5 Sekunden wechseln
       setInterval(changeTipp, 5000);
     </script>
