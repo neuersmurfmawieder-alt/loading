@@ -17,9 +17,22 @@
       <p style="font-size:25px;">Willkommen… bereite dich auf Chaos vor 😄</p>
     </div>
 
-    <audio autoplay loop>
-      <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-    </audio>
+   <audio id="music" autoplay loop>
+  <source src="https://files.catbox.moe/wzzjmd.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  const music = document.getElementById("music");
+
+  // Versuch automatisch abzuspielen
+  music.volume = 0.5;
+  music.play().catch(() => {
+    // Falls blockiert → starte bei Klick
+    document.addEventListener("click", () => {
+      music.play();
+    });
+  });
+</script>
 
   </body>
 </html>
