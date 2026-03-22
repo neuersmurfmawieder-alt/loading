@@ -25,26 +25,34 @@
     <script>
       const music = document.getElementById("music");
 
-      // Versuch automatisch abzuspielen
-      music.volume = 0.1;
+      // Setze ultraleise Lautstärke
+      music.volume = 0.05;
+
+      // Versuch automatisch abzuspielen, falls blockiert → starte nach Klick
       music.play().catch(() => {
         document.addEventListener("click", () => {
+          music.volume = 0.05; // Lautstärke nochmal setzen
           music.play();
         });
       });
 
-      // TTT-Tipps
+      // TTT-Tipps (ultra-cringe & witzig)
       const tipps = [
-        "Tipp: Immer den Traitor schmeicheln, vielleicht vergisst er, dass du Innocent bist.",
-        "Tipp: Wer Bananen wirft, verwirrt moralisch… oder auch nicht.",
-        "Tipp: Als Traitor rede nur in Reimen – niemand versteht dich, genial!",
-        "Tipp: Ducken erhöht Überleben um 0,3%… glaube ich.",
-        "Tipp: Jeder Body flüstert Geheimnisse. Oder nur Halluzinationen.",
-        "Tipp: Taschenlampe = Schwert. Sieht cool aus, bringt nix.",
-        "Tipp: Unsichtbar? Niemand liest diese Tipps.",
-        "Tipp: Caps Lock = Angstfaktor, aber peinlich.",
-        "Tipp: Bei jedem Schuss laut 'BOOM!' schreien, sofortige Panik.",
-        "Tipp: Beste Tarnung: so tun, als wärst du ein Stuhl. Niemand checkt Stühle."
+        "Tipp: Immer den Traitor schmeicheln, vielleicht vergisst er, dass du Innocent bist. 🔥",
+        "Tipp: Werft zufällig aufeinanderfolgende Bananen – Chaos garantiert.",
+        "Tipp: Wenn du einen Body siehst, tu so, als würdest du ihn streicheln – komplett harmlos!",
+        "Tipp: Traitor? Einfach einen Zettel 'Ich bin unschuldig' ans Stirnband kleben.",
+        "Tipp: Ducken = Ninja-Modus. Springen = Super-Ninja-Modus. Tanzen = ???",
+        "Tipp: Bodyguards optional – verkleide dich als Stuhl, niemand verdächtigt dich.",
+        "Tipp: Immer epischen Soundeffekt abspielen, wenn du jemanden tötest… selbst wenn unschuldig.",
+        "Tipp: Unsichtbar? Nein, besser Glitzer-Mütze, alle denken Einhorn.",
+        "Tipp: Bei jedem Schuss laut 'Pew Pew!' schreien – moralische Verwirrung deluxe.",
+        "Tipp: Body gefunden? Sofort Selfie posten – Social Media First!",
+        "Tipp: Schleichen funktioniert am besten, wenn du TikTok-Trends nachmachst.",
+        "Tipp: Benutze jede Waffe nur, um Türen zu öffnen – epische Verwirrung garantiert.",
+        "Tipp: Immer zufälligen Kuchen auf dem Kopf tragen – niemand überprüft Kuchen.",
+        "Tipp: Vom Traitor gejagt? Spiel tot & sing Nationalhymne rückwärts.",
+        "Tipp: Jeder Traitor fürchtet Spieler mit Gummiente – vertrau mir."
       ];
 
       let index = 0;
