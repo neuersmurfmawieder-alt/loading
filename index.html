@@ -10,7 +10,7 @@
       position:fixed; top:0; left:0; width:100%; height:100%;
       pointer-events:none;
       background: radial-gradient(circle, rgba(255,0,255,0.05), rgba(0,255,255,0.05));
-      animation: pulseBG 3s infinite alternate;
+      animation: pulseBG 4s infinite alternate;
       z-index:-1;
     "></div>
 
@@ -27,7 +27,7 @@
         margin:0; 
         font-weight:bold;
         color:#ff00ff;
-        animation: colorPulse 2s infinite alternate;
+        animation: colorPulse 3s infinite alternate;
       ">
         🔥 FeelsBadManZone 🔥
       </h1>
@@ -36,7 +36,7 @@
         margin-top:10px; 
         font-weight:bold;
         color:#ff00ff;
-        animation: colorPulse 2s infinite alternate;
+        animation: colorPulse 3s infinite alternate;
       ">
         Willkommen… bereite dich auf das TOTAL CHAOS vor 😄
       </p>
@@ -77,11 +77,17 @@
       /* Pulsierender Hintergrund */
       @keyframes pulseBG {
         0% { opacity:0.05; }
-        50% { opacity:0.2; }
+        50% { opacity:0.15; }
         100% { opacity:0.05; }
       }
 
-      /* Screen Shake */
+      /* Tipp Aufblitzen + Shake */
+      @keyframes tipFlash {
+        0% { color:#00ffff; text-shadow:0 0 5px #00ffff; transform: scale(1); }
+        50% { color:#ff00ff; text-shadow:0 0 20px #ff00ff; transform: scale(1.1); }
+        100% { color:#00ffff; text-shadow:0 0 5px #00ffff; transform: scale(1); }
+      }
+
       @keyframes tipShake {
         0% { transform: translateX(0); }
         25% { transform: translateX(-3px); }
@@ -90,36 +96,36 @@
         100% { transform: translateX(0); }
       }
 
-      /* Tipp Aufblitzen */
-      @keyframes tipFlash {
-        0% { color:#00ffff; text-shadow:0 0 5px #00ffff; transform: scale(1); }
-        50% { color:#ff00ff; text-shadow:0 0 20px #ff00ff; transform: scale(1.1); }
-        100% { color:#00ffff; text-shadow:0 0 5px #00ffff; transform: scale(1); }
+      /* Emotes fallen von oben */
+      @keyframes emoteFall {
+        0% { transform: translateY(-50px) scale(1); opacity:1; }
+        100% { transform: translateY(110vh) scale(1.2); opacity:0; }
       }
 
-      /* Pepe Meme Animation */
-      @keyframes pepeFall {
-        0% { top:-50px; }
-        100% { top:110%; }
+      .emote {
+        position:fixed;
+        font-size:30px;
+        pointer-events:none;
+        z-index:9999;
+        animation: emoteFall 6s linear forwards;
       }
     </style>
 
     <script>
+      // Musik
       const music = document.getElementById("music");
-      music.volume = 0.01; // Musiklautstärke
+      music.volume = 0.01;
       music.play().catch(() => {
-        document.addEventListener("click", () => {
-          music.volume = 0.01;
-          music.play();
-        });
+        document.addEventListener("click", () => music.play());
       });
 
+      // Tipp-Sound
       const tipSound = document.getElementById("tipSound");
-      tipSound.volume = 0.003; // Tipp-Sound deutlich leiser
+      tipSound.volume = 0.003;
 
-      // TTT-Tipps
+      // Tipps
       const tipps = [
-        "Tipp: Immer den Traitor schmeicheln, vielleicht vergisst er, dass du Innocent bist.",
+        "Tipp: Immer den Traitor schmeicheln, vielleicht vergisst er, dass du Innocent bist. 🔥",
         "Tipp: Werft zufällig aufeinanderfolgende Bananen – Chaos garantiert.",
         "Tipp: Wenn du einen Body siehst, tu so, als würdest du ihn streicheln – komplett harmlos!",
         "Tipp: Traitor? Einfach einen Zettel 'Ich bin unschuldig' ans Stirnband kleben.",
@@ -148,39 +154,23 @@
         index = (index + 1) % tipps.length;
       }
 
-      // Erster Tipp
       changeTipp();
       setInterval(changeTipp, 5000);
 
-      // Pepe Meme Cursor-Follow
-      const pepeImages = [
-        "https://i.imgur.com/vB9Clho.png",
-        "https://i.imgur.com/7PxMp3g.png",
-        "https://i.imgur.com/kzJQKG7.png",
-        "https://i.imgur.com/1Li1kpl.png"
-      ];
-
-      document.addEventListener("mousemove", e => {
-        window.lastMouseX = e.clientX;
-        window.lastMouseY = e.clientY;
-      });
-
-      function spawnPepe() {
-        const img = document.createElement("img");
-        const src = pepeImages[Math.floor(Math.random()*pepeImages.length)];
-        img.src = src;
-        img.style.position = "fixed";
-        img.style.left = (window.lastMouseX || 100) + "px";
-        img.style.top = (window.lastMouseY || 100) + "px";
-        img.style.width = "50px";
-        img.style.zIndex = "9999";
-        img.style.pointerEvents = "none";
-        img.style.animation = "pepeFall 5s linear forwards";
-        document.body.appendChild(img);
-        setTimeout(() => img.remove(), 5000);
+      // Emotes fallen zufällig
+      const emotes = ["🔥","😄","💀","💥","🍌","🎉","✨","🪩","🎯","🥳"];
+      function spawnEmote() {
+        if (document.querySelectorAll(".emote").length > 10) return; // max 10 gleichzeitig
+        const emote = document.createElement("div");
+        emote.classList.add("emote");
+        emote.textContent = emotes[Math.floor(Math.random()*emotes.length)];
+        emote.style.left = Math.random() * 100 + "vw";
+        emote.style.fontSize = 20 + Math.random()*20 + "px";
+        document.body.appendChild(emote);
+        setTimeout(() => emote.remove(), 6000);
       }
 
-      setInterval(spawnPepe, 10000);
+      setInterval(spawnEmote, 1000);
     </script>
 
   </body>
