@@ -15,24 +15,52 @@
     ">
       <h1 style="font-size:60px; margin:0;">🔥 AMOGUS AUF CRACK 🔥</h1>
       <p style="font-size:25px;">Willkommen… bereite dich auf Chaos vor 😄</p>
+      <p id="tip" style="font-size:20px; margin-top:20px;">Lade Tipps…</p>
     </div>
 
-   <audio id="music" autoplay loop>
-  <source src="https://files.catbox.moe/wzzjmd.mp3" type="audio/mpeg">
-</audio>
+    <audio id="music" autoplay loop>
+      <source src="https://files.catbox.moe/wzzjmd.mp3" type="audio/mpeg">
+    </audio>
 
-<script>
-  const music = document.getElementById("music");
+    <script>
+      const music = document.getElementById("music");
 
-  // Versuch automatisch abzuspielen
-  music.volume = 0.1;
-  music.play().catch(() => {
-    // Falls blockiert → starte bei Klick
-    document.addEventListener("click", () => {
-      music.play();
-    });
-  });
-</script>
+      // Versuch automatisch abzuspielen
+      music.volume = 0.1;
+      music.play().catch(() => {
+        document.addEventListener("click", () => {
+          music.play();
+        });
+      });
+
+      // TTT-Tipps
+      const tipps = [
+        "Tipp: Immer den Traitor schmeicheln, vielleicht vergisst er, dass du Innocent bist.",
+        "Tipp: Wer Bananen wirft, verwirrt moralisch… oder auch nicht.",
+        "Tipp: Als Traitor rede nur in Reimen – niemand versteht dich, genial!",
+        "Tipp: Ducken erhöht Überleben um 0,3%… glaube ich.",
+        "Tipp: Jeder Body flüstert Geheimnisse. Oder nur Halluzinationen.",
+        "Tipp: Taschenlampe = Schwert. Sieht cool aus, bringt nix.",
+        "Tipp: Unsichtbar? Niemand liest diese Tipps.",
+        "Tipp: Caps Lock = Angstfaktor, aber peinlich.",
+        "Tipp: Bei jedem Schuss laut 'BOOM!' schreien, sofortige Panik.",
+        "Tipp: Beste Tarnung: so tun, als wärst du ein Stuhl. Niemand checkt Stühle."
+      ];
+
+      let index = 0;
+      const tipDiv = document.getElementById("tip");
+
+      function changeTipp() {
+        tipDiv.textContent = tipps[index];
+        index = (index + 1) % tipps.length;
+      }
+
+      // Ersten Tipp direkt anzeigen
+      changeTipp();
+
+      // Alle 5 Sekunden wechseln
+      setInterval(changeTipp, 5000);
+    </script>
 
   </body>
 </html>
